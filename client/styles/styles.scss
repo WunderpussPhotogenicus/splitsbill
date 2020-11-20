@@ -1,0 +1,15 @@
+$venmo-blue: #3d95ce;
+
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: $venmo-blue;
+}

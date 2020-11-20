@@ -1,0 +1,29 @@
+{
+  "rules": {
+    "no-console": "warn",
+    "no-unused-vars": "warn",
+    "react/prop-types": false
+  },
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "plugins": ["import", "react", "prettier"],
+  "extends": [
+    "airbnb",
+    "plugin:import/errors",
+    "plugin:node/recommended",
+    "plugin:react/recommended",
+    "prettier",
+    "prettier/react",
+    "plugin:prettier/recommended"
+  ]
+}
