@@ -17,6 +17,7 @@ const router = express.Router();
       hostVenmo: derek1818,
       name: 'drunk brunch',
       menu: 'http://www.brunchplace.com/menu',
+      status: 'open',
     },
     orders: [
       {
@@ -50,7 +51,7 @@ const router = express.Router();
     party: 'a possible second open party',
     orders: ['another orders array'],
   },
-];
+]
  *
  */
 router.get(
