@@ -1,5 +1,5 @@
 const express = require('express');
-
+const splitController = require('../splitController');
 const router = express.Router();
 
 /**
@@ -23,7 +23,7 @@ const router = express.Router();
         name: 'Derek',
         status: submitted,
         tax_amount: 200,
-        tip_ammont: 150,
+        tip_ammount: 150,
         items: [
           { name: 'burger', cost: 950, quantity: 2 },
           { name: 'fries', cost: 150, quantity: 1 },
@@ -77,8 +77,10 @@ router.get(
  */
 router.post(
   '/party',
-  /*TODO: add middleware */ (req, res) => {
-    res.status(200).json(rec.locals);
+  splitController.addParty,
+  splitController.addOrder,
+  (req, res) => {
+    res.status(200).json(res.locals);
   }
 );
 
@@ -101,12 +103,9 @@ router.post(
  * sample response data after controllers: just a 200 status code
  *
  */
-router.put(
-  '/order',
-  /*TODO: add middleware */ (req, res) => {
-    res.status(200).json(rec.locals);
-  }
-);
+router.put('/order', splitController.updateOrder, (req, res) => {
+  res.status(200).json(res.locals);
+});
 
 /**
  * When it is triggered: when the host submits complete party
@@ -118,7 +117,7 @@ router.put(
 router.put(
   '/party/:partyid',
   /*TODO: add middleware */ (req, res) => {
-    res.status(200).json(rec.locals);
+    res.status(200).json(res.locals);
   }
 );
 

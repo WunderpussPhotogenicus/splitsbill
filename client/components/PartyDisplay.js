@@ -12,7 +12,7 @@ function PartyDisplay(props) {
   return (
     <div className="OrdersContainer">
       {ordersArr}
-      <s.Button visible={userName === party.host}>Submit</s.Button>
+      <s.Button hidden={userName !== party.host}>Submit</s.Button>
     </div>
   );
 }

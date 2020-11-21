@@ -11,22 +11,22 @@ class App extends Component {
     this.state = {
       isLoggedIn: false,
       partyOpen: false,
-      userName: 'Derek',
-      userId: 1,
+      userName: 'derek',
+      userId: 6,
       parties: [
         {
           party: {
-            _id: 12,
+            _id: 32,
             date: 'date string that JS can parse',
-            host: 'Derek',
+            host: 'derek',
             hostVenmo: 'derek1818',
             name: 'drunk brunch',
-            menu: 'http://www.brunchplace.com/menu',
+            menu: 'https://bit.ly/3pHuurA',
             status: 'open',
           },
           orders: [
             {
-              name: 'Derek',
+              name: 'derek',
               status: 'submitted',
               tax_amount: 200,
               tip_ammont: 150,
@@ -37,7 +37,7 @@ class App extends Component {
               ],
             },
             {
-              name: 'Kyle',
+              name: 'kyle',
               status: 'submitted',
               tax_amount: 170,
               tip_ammont: 250,
@@ -46,7 +46,7 @@ class App extends Component {
                 { name: 'shake', cost: 550, quantity: 1 },
               ],
             },
-            { name: 'Joe', status: 'open' },
+            { name: 'joe', status: 'open' },
           ],
         },
         // {

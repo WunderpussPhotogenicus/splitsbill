@@ -35,9 +35,9 @@ class AddItem extends Component {
     const { item, cost, quantity } = this.state;
     const { handleClick } = this.props;
     return (
-      <div className="orderItem" class="ui form">
+      <div className="orderItem" className="ui form">
         <div className="fields">
-          <div className="one wide field">
+          <div className="two wide field">
             <input
               type="number"
               placeholder="#"
@@ -45,7 +45,7 @@ class AddItem extends Component {
               onChange={this.quantUpdate}
             />
           </div>
-          <div className="twelve wide field">
+          <div className="ten wide field">
             <input
               type="text"
               placeholder="Item Description"
