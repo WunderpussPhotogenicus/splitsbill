@@ -1,16 +1,54 @@
 const express = require('express');
+const fetch = require('node-fetch');
+const sessionController = require('../controllers/sessionController');
 
 const router = express.Router();
 
-// /auth
-// /auth/login
-// /auth/venmo
+// information required for github oauth
+const client_id = process.env.GITHUB_CLIENT_ID;
+const client_secret = process.env.GITHUB_CLIENT_SECRET;
+
+async function getAccessToken(code) {
+  const res = await fetch('https://github.com/login/oauth/access_token', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      client_id,
+      client_secret,
+      code,
+    }),
+  });
+  const data = await res.text();
+  const params = new URLSearchParams(data);
+  return params.get('access_token');
+}
+
+async function getGitHubUser(access_token) {
+  const req = await fetch('https://api.github.com/user', {
+    headers: {
+      Authorization: `bearer ${access_token}`,
+    },
+  });
+  const data = await req.json();
+  return data;
+}
+
+router.get('/login/callback', async (req, res) => {
+  const code = req.query.code;
+  const token = await getAccessToken(code);
+  const githubData = await getGitHubUser(token);
+  res.json(githubData);
+});
+
+router.get('/login', sessionController.isLoggedIn, (req, res) => {
+  const url = `https://github.com/login/oauth/authorize?client_id=${client_id}&redirect_uri=http://localhost:3000/auth/login/callback`;
+  res.redirect(url);
+});
 
 // 1. when app renders, client sends get request to /auth
-//    server checks for cookie
-//      if session exists, redirect to main app (using router)
-//        send back response object with username and userid and venmo (state required for front end)
-//        user information connected to ssid in database
+
 //      if not redirect to login UI in the router that presents the GitHub OAuth
 // 2. when GitHub Oauth button clicked get request to /auth/login
 //    commence github Oauth logic
