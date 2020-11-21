@@ -4,7 +4,7 @@ const router = express.Router();
 
 /**
  * When it is triggered: should be constantly checked on interval by logged in user
- * What it does: checks for and returns any updates to open parties associated with current user; 
+ * What it does: checks for and returns any open parties associated with current user; 
  *    also returns any closed parties with a date from the last 24hours;
  * sample request data from frontend: just the req.params.userid
  * sample response data after controllers:
@@ -12,7 +12,6 @@ const router = express.Router();
    {
     party: {
       _id: 12,
-      date: 'date string that JS can parse',
       host: 'Derek',
       hostVenmo: derek1818,
       name: 'drunk brunch',
