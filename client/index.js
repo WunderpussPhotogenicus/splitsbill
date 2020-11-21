@@ -5,3 +5,5 @@ import './styles/styles.scss';
 import 'semantic-ui-css/semantic.min.css';
 
 render(<App />, document.getElementById('root'));
+
+// this is test pull request from Joe; create another merge conflict
