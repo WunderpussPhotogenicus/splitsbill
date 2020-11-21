@@ -8,8 +8,8 @@ function Party(props) {
   console.log('Party.js props', props);
   return (
     <div className="PartyContainer">
-      <PartyDisplay party={party} userName={userName} userid={userid} />
       <PartyOrder party={party} userid={userid} />
+      <PartyDisplay party={party} userName={userName} userid={userid} />
     </div>
   );
 }

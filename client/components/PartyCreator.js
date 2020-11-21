@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import * as s from 'semantic-ui-react';
+import { Button, Form, Select } from 'semantic-ui-react';
 
 class PartyCreator extends Component {
   constructor(props) {
@@ -63,7 +63,7 @@ class PartyCreator extends Component {
   render() {
     const { partyName, menu, guest, allGuests } = this.state;
     return (
-      <div className="partyCreator" className="ui form">
+      <Form className="partyCreator" className="ui form">
         <div className="fields">
           <div className="twelve wide field">
             <input
@@ -90,15 +90,15 @@ class PartyCreator extends Component {
               onChange={this.guestUpdate}
             />
           </div>
-          <s.Button
+          <Button
             onClick={() => {
               this.addGuest(guest);
               this.setState({ guest: '' });
             }}
           >
             +
-          </s.Button>
-          <s.Button
+          </Button>
+          <Button
             onClick={() => {
               this.submit();
               this.setState({
@@ -110,9 +110,9 @@ class PartyCreator extends Component {
             }}
           >
             Create Party
-          </s.Button>
+          </Button>
         </div>
-      </div>
+      </Form>
     );
   }
 }

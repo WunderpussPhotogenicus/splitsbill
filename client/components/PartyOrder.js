@@ -28,7 +28,7 @@ class Party extends Component {
       output.push(<Item key={i} name={name} cost={cost} quantity={quantity} />);
     }
     return (
-      <div className="party">
+      <div className="PartyOrder">
         <div className="ui grid">
           <div class="one wide column"></div>
           <div class="four wide left floated column">

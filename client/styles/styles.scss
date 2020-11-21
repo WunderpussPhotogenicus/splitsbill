@@ -13,7 +13,16 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-#app {
-  background-color: $venmo-blue;
-  color: white;
+.PartyContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.PartyOrder {
+  flex-grow: 1;
+}
+
+.OrdersContainer {
+  flex-grow: 1;
 }

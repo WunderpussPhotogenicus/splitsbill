@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import * as s from 'semantic-ui-react';
 import Party from './Party.js';
 import PartyCreator from './PartyCreator';
+import Login from './Login';
 
 class App extends Component {
   constructor(props) {
@@ -75,7 +76,11 @@ class App extends Component {
 
   partyStarter() {
     console.log("let's get it started");
-    this.setState({ partyOpen: true });
+    if (this.state.partyOpen === false && this.state.isLoggedIn) {
+      this.setState({ partyOpen: true });
+    } else {
+      this.setState({ partyOpen: false });
+    }
   }
 
   render() {
@@ -85,19 +90,9 @@ class App extends Component {
     ));
     const renderAuthButton = () => {
       if (!isLoggedIn) {
-        return (
-          <div className="ui placeholder segment">
-            <div className="ui icon header">
-              <i className="search icon"></i>
-              Login with Venmo (or some other Oauth)
-            </div>
-            <div className="inline">
-              <s.Button className="ui primary button" onClick={this.login}>
-                Venmo
-              </s.Button>
-            </div>
-          </div>
-        );
+        return <Login login={this.login} />;
+      } else {
+        <div>{partiesArr}</div>;
       }
     };
     const createParty = () => {
@@ -108,15 +103,14 @@ class App extends Component {
               host_name={this.state.userName}
               host_id={this.state.userId}
             />
-            {partiesArr}
           </div>
         );
-      } else if (parties.length && !isLoggedIn) {
-        return (
-          <s.Card>
-            <h1>Please Login First</h1>
-          </s.Card>
-        );
+        // } else {
+        //   return (
+        //     <s.Card>
+        //       <h1>Please Login First</h1>
+        //     </s.Card>
+        //   );
       }
     };
     return (
@@ -134,7 +128,7 @@ class App extends Component {
         </div>
         {renderAuthButton()}
         {createParty()}
-        {/* <Party /> */}
+        {partiesArr}
       </div>
     );
   }
