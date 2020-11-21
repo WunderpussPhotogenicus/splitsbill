@@ -84,9 +84,6 @@ class App extends Component {
   }
 
   render() {
-<<<<<<< HEAD
-    return <h1>GitHub OAuth Testing</h1>;
-=======
     let { isLoggedIn, parties, userId, userName, partyOpen } = this.state;
     const partiesArr = parties.map((party, index) => (
       <Party key={index} userName={userName} userid={userId} party={party} />
@@ -134,7 +131,6 @@ class App extends Component {
         {partiesArr}
       </div>
     );
->>>>>>> main
   }
 }
 
