@@ -2,12 +2,14 @@ const cookieParser = require('cookie-parser');
 const express = require('express');
 const path = require('path');
 const authRouter = require('./routes/auth');
+const apiRouter = require('./routes/api');
 
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
 // routes all client requests
+app.use('/api', apiRouter);
 app.use('/auth', authRouter);
 
 // handles initial page load when in production
