@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rm dist/bundle.js",
     "dev": "export NODE_ENV=development; webpack-dev-server --open;",
-    "dev-server": "export NODE_ENV=development; nodemon server/server.js",
+    "dev-server": "export NODE_ENV=development; nodemon -r esm -r dotenv/config server/server.js",
     "build": "export NODE_ENV=production; webpack",
     "start": "export NODE_ENV=production; nodemon server/server.js"
   },
@@ -23,7 +23,10 @@
   "homepage": "https://github.com/WunderpussPhotogenicus/splitsbill#readme",
   "dependencies": {
     "cookie-parser": "^1.4.5",
+    "dotenv": "^8.2.0",
+    "esm": "^3.2.25",
     "express": "^4.17.1",
+    "node-fetch": "^2.6.1",
     "pg": "^8.5.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
