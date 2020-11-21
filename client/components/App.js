@@ -48,10 +48,10 @@ class App extends Component {
             { name: 'Joe', status: 'open' },
           ],
         },
-        {
-          party: 'a possible second open party',
-          orders: ['another orders array'],
-        },
+        // {
+        //   party: 'a possible second open party',
+        //   orders: ['another orders array'],
+        // },
       ],
     };
     this.login = this.login.bind(this);
@@ -79,7 +79,10 @@ class App extends Component {
   }
 
   render() {
-    let { isLoggedIn, partyOpen } = this.state;
+    let { isLoggedIn, parties, userId, userName, partyOpen } = this.state;
+    const partiesArr = parties.map((party, index) => (
+      <Party key={index} userName={userName} userid={userId} party={party} />
+    ));
     const renderAuthButton = () => {
       if (!isLoggedIn) {
         return (
@@ -97,10 +100,18 @@ class App extends Component {
         );
       }
     };
-    const renderParty = () => {
-      if (partyOpen && isLoggedIn) {
-        return <PartyCreator />;
-      } else if (partyOpen && !isLoggedIn) {
+    const createParty = () => {
+      if (isLoggedIn && partyOpen) {
+        return (
+          <div>
+            <PartyCreator
+              host_name={this.state.userName}
+              host_id={this.state.userId}
+            />
+            {partiesArr}
+          </div>
+        );
+      } else if (parties.length && !isLoggedIn) {
         return (
           <s.Card>
             <h1>Please Login First</h1>
@@ -122,7 +133,8 @@ class App extends Component {
           </div>
         </div>
         {renderAuthButton()}
-        {renderParty()}
+        {createParty()}
+        {/* <Party /> */}
       </div>
     );
   }

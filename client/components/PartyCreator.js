@@ -31,17 +31,37 @@ class PartyCreator extends Component {
     this.setState({ guest: e.target.value });
   }
 
-  addGuest(e) {
-    console.log('addGuest activated', e.target.value);
-    //this.setState({ allGuests: [...this.state.allGuests, guest] });
+  addGuest(guest) {
+    console.log('addGuest activated', guest, this.state.allGuests);
+    this.setState({ allGuests: [...this.state.allGuests, guest] });
   }
 
-  submit(partyName, menu, allGuests) {
+  async submit() {
+    const { host_name, host_id } = this.props;
+    const { partyName, menu, allGuests } = this.state;
     console.log('Where should I send the completed form, tho?');
+    const data = {
+      host_name,
+      host_id,
+      name: partyName,
+      menu,
+      guests: allGuests,
+    };
+    try {
+      await fetch('/api/party', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+    } catch (err) {
+      console.log('oh shit', err);
+    }
   }
 
   render() {
-    const { partyName, menu, guest } = this.state;
+    const { partyName, menu, guest, allGuests } = this.state;
     return (
       <div className="partyCreator" className="ui form">
         <div className="fields">
@@ -72,7 +92,7 @@ class PartyCreator extends Component {
           </div>
           <s.Button
             onClick={() => {
-              addGuest(guest);
+              this.addGuest(guest);
               this.setState({ guest: '' });
             }}
           >
@@ -80,7 +100,7 @@ class PartyCreator extends Component {
           </s.Button>
           <s.Button
             onClick={() => {
-              submit(partyName, menu, allGuests);
+              this.submit();
               this.setState({
                 partyName: '',
                 guest: '',
