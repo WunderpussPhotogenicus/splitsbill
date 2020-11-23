@@ -9,9 +9,10 @@ class Party extends Component {
     this.state = {
       hostName: 'Kyle',
       menu: 'https://bit.ly/3pHuurA',
-      currentOrder: [{ name: 'burger', cost: 950, quantity: 2 }],
+      currentOrder: [],
     };
     this.handleClick = this.handleClick.bind(this);
+    this.addOrderToParty = this.addOrderToParty.bind(this);
   }
 
   handleClick(name, cost, quantity) {
@@ -20,48 +21,87 @@ class Party extends Component {
     });
   }
 
+  async addOrderToParty() {
+    console.log('Let us submit your order to the party');
+    const { currentOrder } = this.state;
+    const { party, userid, userName } = this.props;
+    console.log(currentOrder);
+    const data = {
+      username: userName,
+      party_id: party.party._id,
+      user_id: userid,
+      tax_amount: 200,
+      tip_amount: 150,
+      items: currentOrder,
+    };
+    try {
+      await fetch('/api/order', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+    } catch (err) {
+      console.log(err);
+    }
+    next();
+  }
+
   render() {
     const { menu } = this.state;
-    const output = [];
+    const { party } = this.props.party;
+    const itemsArr = [];
     for (let i = 0; i < this.state.currentOrder.length; i++) {
       const { name, cost, quantity } = this.state.currentOrder[i];
-      output.push(<Item key={i} name={name} cost={cost} quantity={quantity} />);
+      itemsArr.push(
+        <Item key={i} name={name} cost={cost} quantity={quantity} />
+      );
     }
     return (
       <div className="PartyOrder">
         <div className="ui grid">
-          <div class="one wide column"></div>
-          <div class="four wide left floated column">
-            <h2>Host: {this.state.hostName}</h2>
+          <div className="one wide column"></div>
+          <div className="four wide left floated column">
+            <h2>Host: {party.host}</h2>
           </div>
 
-          <div class="six wide right floated column">
-            <h2>Menu: {this.state.menu}</h2>
+          <div className="six wide right floated column">
+            <h2>
+              Menu:{' '}
+              <a href={party.menu} target="_blank">
+                {party.menu}
+              </a>
+            </h2>
           </div>
         </div>
         <div className="item">
           <div className="ui grid">
-            <div class="one wide column">
+            <div className="two wide column">
               <h3>#</h3>
             </div>
-            <div class="twelve wide column">
+            <div className="ten wide column">
               <h3>Item Description</h3>
             </div>
-            <div class="one wide column">
+            <div className="one wide column">
               <h3>$$</h3>
             </div>
-            <div class="one wide column">
+            <div className="one wide column">
               <h3>Total</h3>
             </div>
           </div>
         </div>
         {/* <h4>Host Name --------- Menu: "Hyperlink..."</h4> */}
         <div className="ui grid"></div>
-        {output}
+        {itemsArr}
 
         <s.Card fluid color="blue">
           <AddItem handleClick={this.handleClick} />
         </s.Card>
+
+        <s.Button className="positive ui botton" onClick={this.addOrderToParty}>
+          Add order to Party
+        </s.Button>
       </div>
     );
   }
